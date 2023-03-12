@@ -1,0 +1,55 @@
+/* Global */
+* {
+    font-size: 100%;
+    font-family: Roboto;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #000000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: hsl(231, 100%, 50%);
+    color: white;
+}
+
+.body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerbody {
+    width: 1200px;
+}
+
+.maintitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
