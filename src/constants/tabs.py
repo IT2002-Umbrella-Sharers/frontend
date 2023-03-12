@@ -1,0 +1,5 @@
+TAB_HOME = 'home'
+TAB_LOAN = 'loan'
+TAB_BORROW = 'borrow'
+TAB_LOGIN = 'login'
+TAB_NONE = 'none'
