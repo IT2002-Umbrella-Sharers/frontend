@@ -1,0 +1,11 @@
+<div class="topnav">
+    <a class="{{ 'active' if active == constants.TAB_HOME else '' }}" href="/">Home</a>
+    <a class="{{ 'active' if active == constants.TAB_LOAN else '' }}" href="/loan">Loan an umbrella</a>
+    <a class="{{ 'active' if active == constants.TAB_BORROW else '' }}" href="/borrow">Borrow an umbrella</a>
+    {% if session["logged_in"] == True %}
+        <a href="/login" onclick="ExecPythonCommand('fn_logout()')">Logout</a>
+    {% else %}
+        <a class="{{ 'active' if active == constants.TAB_LOGIN else '' }}"
+        href="/login">Login</a>
+    {% endif %}
+</div>
