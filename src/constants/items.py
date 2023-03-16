@@ -25,3 +25,11 @@ ADMIN_ITEMS = {
 LOGIN_ITEMS = {
     'title': "Login",
 }
+
+REGISTER_ITEMS = {
+    'title': "Register",
+}
+
+RESULT_ITEMS = {
+    'title': "Result",
+}

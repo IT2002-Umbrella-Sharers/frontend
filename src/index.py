@@ -1,18 +1,49 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, request, redirect, url_for
 from flask_session import Session
 import constants.index as constants
-from utils.main import *
+from utils.index import *
 
 app = Flask(__name__, template_folder='html', static_folder='static')
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
+# Middleware
+
+@app.before_request
+def redirect_if_not_logged_in():
+    if reroute_for_login(request.path, check_logged_in()):
+        return redirect(url_for('login'))
 
 @app.context_processor
 def inject_user():
-    return dict(constants=constants, session=session, login=fn_login, logout=fn_logout)
+    return dict(constants=constants, session=session)
 
+# POST data
+
+@app.route("/post_login", methods=['POST'])
+def post_login():
+    r = check_result_login(
+        request.form['email'],
+        request.form['password'],
+    )
+    
+    res = constants.RESULT_LOGIN_SUCCESSFUL if r\
+        else constants.RESULT_LOGIN_FAILED
+    return redirect(url_for('result', res=res))
+
+@app.route("/post_register", methods=['POST'])
+def post_register():
+    r = check_result_register(
+        request.form['email'],
+        request.form['password'],
+        request.form['confirm-password']
+    )
+    res = constants.RESULT_REGISTER_SUCCESSFUL if r\
+        else constants.RESULT_REGISTER_FAILED
+    return redirect(url_for('result', res=res))
+
+# Pages
 
 @app.route('/')
 def home():
@@ -37,6 +68,11 @@ def login():
     active = constants.TAB_LOGIN
     return render_template('login.html', items=constants.LOGIN_ITEMS, active=active)
 
+@app.route('/register')
+def register():
+    active = constants.TAB_LOGIN
+    return render_template('register.html', items=constants.REGISTER_ITEMS, active=active)
+
 
 @app.route('/user')
 def user():
@@ -48,6 +84,11 @@ def user():
 def admin():
     active = constants.TAB_NONE
     return render_template('admin.html', items=constants.ADMIN_ITEMS, active=active)
+
+@app.route('/result?res=<res>')
+def result(res):
+    active = constants.TAB_NONE
+    return render_template('result.html', items=constants.RESULT_ITEMS, active=active, message=res)
 
 
 @app.route('/<FUNCTION>')
