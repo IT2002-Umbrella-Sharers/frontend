@@ -1,0 +1,5 @@
+primary: 06aed5
+secondary: 
+warning: f0c808
+misc: fff1d0
+error: dd1c1a
