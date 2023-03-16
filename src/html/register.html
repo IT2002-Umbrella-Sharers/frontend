@@ -1,0 +1,17 @@
+{% include "layout/header.html" %}
+<form action="{{ url_for('post_register') }}" method="post">
+    <div class="form-outer-box">
+        <div class="form-box">
+            <input type="email" name="email" placeholder="Email" class="form-email" />
+            <input type="password" name="password" placeholder="Password" class="form-email" />
+            <input type="password" name="confirm-password" placeholder="Confirm password" class="form-email" />
+            <div onclick="javascript:document.forms[0].submit();" class="form-btn-primary">Sign Up</div>
+            <div id="form-btn-secondary">
+                Already have an account?
+                <a href="/login">Login</a>
+            </div>
+            <input type="submit" hidden />
+        </div>
+    </div>
+</form>
+{% include "layout/footer.html" %}

@@ -5,7 +5,7 @@
     {% if session["logged_in"] == True %}
         <a href="/login" onclick="ExecPythonCommand('fn_logout()')">Logout</a>
     {% else %}
-        <a class="{{ 'active' if active == constants.TAB_LOGIN else '' }}"
+        <a onclick="ExecPythonCommand('fn_login()')" class="{{ 'active' if active == constants.TAB_LOGIN else '' }}"
         href="/login">Login</a>
     {% endif %}
 </div>
