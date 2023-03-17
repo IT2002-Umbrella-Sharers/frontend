@@ -1,4 +1,6 @@
 from flask import session, url_for
+from .loans import retrieve_loans
+from .borrowed import retrieve_borrowed
 
 def check_logged_in():
     print(session["logged_in"])
@@ -7,10 +9,14 @@ def check_logged_in():
 def fn_login(email):
     session["logged_in"] = True
     session["email"] = email
+    session["loans"] = retrieve_loans(email)
+    session["borrowed"] = retrieve_borrowed(email)
 
 
 def fn_logout():
     session["logged_in"] = False
+    session["loans"] = []
+    session["borrowed"] = []
 
 def check_result_login(email, password):
     r = True

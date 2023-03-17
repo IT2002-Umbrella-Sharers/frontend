@@ -1,3 +1,14 @@
 {% include "layout/header.html" %}
-
+<div class="subtitle">Items loaned</div>
+{% if session["loans"] != [] %}
+    {% with rows=session["loans"] %}
+        {% include "table/table.html" %}
+    {% endwith %}
+{% endif %}
+<div class="subtitle">Items borrowed</div>
+{% if session["borrowed"] != [] %}
+    {% with rows=session["borrowed"] %}
+        {% include "table/table.html" %}
+    {% endwith %}
+{% endif %}
 {% include "layout/footer.html" %}

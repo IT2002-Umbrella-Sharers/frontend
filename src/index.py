@@ -10,6 +10,13 @@ Session(app)
 
 # Middleware
 
+@app.before_first_request
+def intialise_session():
+    session["logged_in"] = False
+    session['id'] = None
+    session['loaned'] = []
+    session['borrowed'] = []
+ 
 @app.before_request
 def redirect_if_not_logged_in():
     if reroute_for_login(request.path, check_logged_in()):
@@ -84,6 +91,7 @@ def user():
 def admin():
     active = constants.TAB_NONE
     return render_template('admin.html', items=constants.ADMIN_ITEMS, active=active)
+
 
 @app.route('/result?res=<res>')
 def result(res):

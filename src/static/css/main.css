@@ -1,7 +1,7 @@
 /* Global */
 * {
     font-size: 100%;
-    font-family: Roboto;
+    font-family: 'Roboto';
 }
 
 /* Add a black background color to the top navigation */
@@ -52,4 +52,27 @@
     margin-top: 50px;
     font-size: 2.5rem;
     font-weight: 500;
+}
+
+.subtitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.btn-request {
+    background:#06aed5;
+    /* width: 20%; */
+    padding: 10px;
+    color:white;
+    border-radius:4px;
+    margin-top:30px;
+    margin-bottom:20px;
+    float:right;
+    font-weight:800;
+    cursor: pointer;
 }

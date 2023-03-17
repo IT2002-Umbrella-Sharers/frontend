@@ -1,3 +1,10 @@
 {% include "layout/header.html" %}
-
+{% if session["loans"] != [] %}
+    {% with rows=session["loans"] %}
+        {% include "table/table.html" %}
+    {% endwith %}
+{% else %}
+    {% include "table/emptyTable.html" %}
+{% endif %}
+<div onclick="" class="btn-request">Lend a new umbrella</div>
 {% include "layout/footer.html" %}

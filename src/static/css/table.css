@@ -1,0 +1,14 @@
+.table-container {
+  display: grid;
+  gap: 10px 10px;
+  grid-template-columns: auto auto auto auto auto;
+  background-color: #06aed5;
+  padding: 10px;
+  font-size: large;
+}
+
+.table-container > div {
+  background-color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 20px 0;
+}

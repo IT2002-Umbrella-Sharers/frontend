@@ -1,3 +1,10 @@
 {% include "layout/header.html" %}
     {{ message }}
+    <script>
+        window.setTimeout(() => {
+            var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port;
+            console.log(url);
+            window.location.href = url;
+        }, 1000);
+    </script>
 {% include "layout/footer.html" %}
