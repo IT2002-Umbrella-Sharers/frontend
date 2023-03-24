@@ -1,5 +1,5 @@
 {% include "layout/header.html" %}
-<form action="{{ url_for('post_login') }}" method="post">
+<form action="{{ url_for('post_add') }}" method="post">
     <div class="form-outer-box">
         <div class="form-box">
             <input type="email" name="email" placeholder="Email" class="form-input" />
@@ -16,5 +16,4 @@
         </div>
     </div>
 </form>
-
 {% include "layout/footer.html" %}

@@ -1,6 +1,6 @@
 import requests
 
-BASE_URL = "http://localhost:7777"
+BASE_URL = "http://127.0.0.1:7777"
 
 # Helper Function
 def generate_url(route):
@@ -9,8 +9,11 @@ def generate_url(route):
 # Get Requests
 def get_locations():
     url = generate_url("getlocations")
-    r = requests.get(url)
-    return r['data']
+    r = requests.get(url).json()
+    locations = []
+    for location in r['data']:
+        locations.append(location['name'])
+    return locations
 
 # Post Requests
 def check_credentials(email, password):
@@ -52,7 +55,7 @@ def get_loaned_umbrellas(email):
         return []
     return r['data']
 
-def post_register(email, password, first_name, last_name):
+def register(email, password, first_name, last_name):
     url = generate_url("register")
     payload = {
         'email': email,
@@ -61,8 +64,7 @@ def post_register(email, password, first_name, last_name):
         'last_name': last_name
     }
     r = requests.post(url, data=payload).json()
-    if not(r['data']):
-        return []
+    print(r)
     return r['data']
 
 def return_umbrella(loan_id):

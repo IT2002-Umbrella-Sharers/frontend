@@ -33,3 +33,11 @@ REGISTER_ITEMS = {
 RESULT_ITEMS = {
     'title': "Result",
 }
+
+ADD_ITEMS = {
+    'title': "Add Umbrella Form"
+}
+
+BORROW_ITEMS = {
+    'title': "Borrow Umbrella Form"
+}

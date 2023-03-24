@@ -2,9 +2,11 @@
 <form action="{{ url_for('post_register') }}" method="post">
     <div class="form-outer-box">
         <div class="form-box">
-            <input type="email" name="email" placeholder="Email" class="form-email" />
-            <input type="password" name="password" placeholder="Password" class="form-email" />
-            <input type="password" name="confirm-password" placeholder="Confirm password" class="form-email" />
+            <input type="text" name="first_name" placeholder="First Name" class="form-input" />
+            <input type="text" name="last_name" placeholder="Last Name" class="form-input" />
+            <input type="email" name="email" placeholder="Email" class="form-input" />
+            <input type="password" name="password" placeholder="Password" class="form-input" />
+            <input type="password" name="confirm-password" placeholder="Confirm password" class="form-input" />
             <div onclick="javascript:document.forms[0].submit();" class="form-btn-primary">Sign Up</div>
             <div id="form-btn-secondary">
                 Already have an account?

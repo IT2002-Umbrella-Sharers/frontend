@@ -39,6 +39,8 @@ def post_login():
 @app.route("/post_register", methods=['POST'])
 def post_register():
     r = check_result_register(
+        request.form['first_name'],
+        request.form['last_name'],
         request.form['email'],
         request.form['password'],
         request.form['confirm-password']
@@ -46,6 +48,15 @@ def post_register():
     res = constants.RESULT_REGISTER_SUCCESSFUL if r\
         else constants.RESULT_REGISTER_FAILED
     return redirect(url_for('result', res=res))
+
+@app.route("/post_add", methods=['POST'])
+def post_add():
+    r = check_result_register(
+        request.form['colour'],
+        request.form['size'],
+        session['email'],
+        request.form['location'],
+    )
 
 # Pages
 
@@ -89,6 +100,10 @@ def admin():
     active = constants.TAB_NONE
     return render_template('admin.html', items=constants.ADMIN_ITEMS, active=active)
 
+@app.route('/addUmbrella')
+def add():
+    active = constants.TAB_ADD
+    return render_template('addUmbrella.html', items=constants.ADD_ITEMS, active=active)
 
 @app.route('/result?res=<res>')
 def result(res):
