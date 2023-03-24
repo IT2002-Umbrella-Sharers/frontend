@@ -1,17 +1,20 @@
+from flask import session
 from .retrieve_info import retrieve_name
+from .request import get_current_loans
 
 def retrieve_borrowed(id):
-    # return format is tentatively loan_id, umbrella_id, lender_id, start_date, end_date
-    r = [
-        "4, 24, 7, 1/1/2023 08:00:00, 4/1/2023 06:00:00".split(", "),
-        "8, 2, 1, 1/1/2023 08:00:00, 4/1/2023 06:00:00".split(", "),
-        "12, 1, 4, 1/1/2023 08:00:00, 4/1/2023 06:00:00".split(", "),
-        "16, 30, 6, 1/1/2023 08:00:00, 4/1/2023 06:00:00".split(", "),
-        "20, 6, 9, 1/1/2023 08:00:00, 4/1/2023 06:00:00".split(", "),
-    ]
+    # return format is loan_id, umbrella_id, lender_name, location, start_date
+    r = get_current_loans(id)
+    output = []
     for loan in r:
-        loan[2] = retrieve_name(loan[2])
-    return get_borrowed_header() + r
+        output.append([
+            loan['loan_id'],
+            loan['umbrella_id'],
+            loan['first_name'] + " " + loan['last_name'],
+            loan['location_name'],
+            loan['start_date'] 
+        ])
+    return get_borrowed_header() + output
 
 def get_borrowed_header():
-    return [["Loan ID", "Umbrella ID", "Borrowed From", "Start Date", "End Date"]]
+    return [["Loan ID", "Umbrella ID", "Borrowed From", "Location", "Date Borrowed"]]

@@ -1,9 +1,9 @@
 from flask import session, url_for
 from .loans import retrieve_loans
 from .borrowed import retrieve_borrowed
+from .request import check_credentials
 
 def check_logged_in():
-    print(session["logged_in"])
     return session["logged_in"]
 
 def fn_login(email):
@@ -11,17 +11,21 @@ def fn_login(email):
     session["email"] = email
     session["loans"] = retrieve_loans(email)
     session["borrowed"] = retrieve_borrowed(email)
-
+    session["incorrect_input"] = False
 
 def fn_logout():
     session["logged_in"] = False
+    session["email"] = None
     session["loans"] = []
     session["borrowed"] = []
+    session["incorrect_input"] = False
 
 def check_result_login(email, password):
-    r = True
+    r = check_credentials(email, password)
     if r:
         fn_login(email)
+    else:
+        session["incorrect_input"] = True
     return r
 
 def reroute_for_login(path, other):

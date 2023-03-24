@@ -4,6 +4,9 @@
         <div class="form-box">
             <input type="email" name="email" placeholder="Email" class="form-email" />
             <input type="password" name="password" placeholder="Password" class="form-email" />
+            {% if session['incorrect_input'] == True %}
+                {% include "components/errorBar.html" %}
+            {% endif %}
             <div onclick="javascript:document.forms[0].submit();" class="form-btn-primary">Sign In</div>
             <div class="form-btn-secondary">
                 Don't have an account?

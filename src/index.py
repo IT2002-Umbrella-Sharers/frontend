@@ -12,10 +12,7 @@ Session(app)
 
 @app.before_first_request
 def intialise_session():
-    session["logged_in"] = False
-    session['id'] = None
-    session['loaned'] = []
-    session['borrowed'] = []
+    fn_logout()
  
 @app.before_request
 def redirect_if_not_logged_in():

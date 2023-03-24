@@ -76,3 +76,9 @@
     font-weight:800;
     cursor: pointer;
 }
+
+.error {
+    color: #dd1c1a;
+    width: 100%;
+    text-align: center;
+}
