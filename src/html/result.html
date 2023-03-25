@@ -1,8 +1,10 @@
 {% include "layout/header.html" %}
+    <meta id="location" location="{{ location }}">
     {{ message }}
     <script>
+        var location = document.getElementById("location").getAttribute("location")
         window.setTimeout(() => {
-            var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port;
+            var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/" + location;
             console.log(url);
             window.location.href = url;
         }, 1000);

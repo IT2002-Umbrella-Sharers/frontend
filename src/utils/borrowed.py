@@ -1,6 +1,18 @@
 from flask import session
 from .retrieve_info import retrieve_name
-from .request import get_current_loans
+from .request import get_current_loans, generate_url
+import requests
+
+def get_umbrella(location):
+    url = generate_url("getumbrella")
+    payload = {
+        "location": location
+    }
+    r = requests.post(url, data=payload).json()
+    return r['data']
+
+def submit_borrow(location):
+    url = generate_url("loanumbrella")
 
 def retrieve_borrowed(id):
     # return format is loan_id, umbrella_id, lender_name, location, start_date

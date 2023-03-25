@@ -38,6 +38,7 @@ def post_login():
 
 @app.route("/post_register", methods=['POST'])
 def post_register():
+    email = request.form['email']
     r = check_result_register(
         request.form['first_name'],
         request.form['last_name'],
@@ -45,9 +46,48 @@ def post_register():
         request.form['password'],
         request.form['confirm-password']
     )
-    res = constants.RESULT_REGISTER_SUCCESSFUL if r\
-        else constants.RESULT_REGISTER_FAILED
+    print(r)
+    if r:
+        fn_login(email)
+        res = constants.RESULT_REGISTER_SUCCESSFUL
+    else:
+        res = constants.RESULT_REGISTER_FAILED
+
     return redirect(url_for('result', res=res))
+
+@app.route("/post_loan", methods=['POST'])
+def post_loan():
+    r = submit_loan(
+        session["email"],
+        request.form['size'],
+        request.form['colour'],
+        request.form['location']
+    )
+
+    if r:
+        print(retrieve_loans(session["email"]))
+        session["loans"] = retrieve_loans(session["email"])
+        res = constants.RESULT_SUBMIT_LOAN_SUCCESSFUL
+    else:
+        res = constants.RESULT_SUBMIT_LOAN_FAILED
+    res = constants.RESULT_SUBMIT_LOAN_SUCCESSFUL if r\
+        else constants.RESULT_SUBMIT_LOAN_FAILED
+    return redirect(url_for('result', res=res, location='loan'))
+
+@app.route("/post_borrow", methods=['POST'])
+def post_borrow():
+    r = get_umbrella(request.form['location'])
+    if r:
+        session['available_umbrella'] = [
+            [
+                umbrella['id'],
+                umbrella['colour'],
+                umbrella['size'],
+                umbrella['name']
+            ]
+            for umbrella in r
+        ]
+    return redirect(url_for('borrow', res="hello"))
 
 @app.route("/post_add", methods=['POST'])
 def post_add():
@@ -106,9 +146,13 @@ def add():
     return render_template('addUmbrella.html', items=constants.ADD_ITEMS, active=active)
 
 @app.route('/result?res=<res>')
-def result(res):
+def result(res, location="/"):
     active = constants.TAB_NONE
-    return render_template('result.html', items=constants.RESULT_ITEMS, active=active, message=res)
+    return render_template('result.html', 
+                           items=constants.RESULT_ITEMS, 
+                           active=active, 
+                           message=res, 
+                           location=location)
 
 
 @app.route('/<FUNCTION>')

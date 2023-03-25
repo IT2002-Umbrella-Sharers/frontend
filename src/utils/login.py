@@ -11,18 +11,16 @@ def fn_login(email):
     session["email"] = email
     session["loans"] = retrieve_loans(email)
     session["borrowed"] = retrieve_borrowed(email)
-    session["location"] = get_locations()
+    session["locations"] = get_locations()
     session["incorrect_input"] = False
     session["invalid_register"] = False
+    session['available_umbrella'] = []
 
 def fn_logout():
     session["logged_in"] = False
-    session["email"] = None
-    session["loans"] = []
-    session["borrowed"] = []
-    session["location"] = None
     session["incorrect_input"] = False
     session["invalid_register"] = False
+    session['available_umbrella'] = []
 
 def check_result_login(email, password):
     r = check_credentials(email, password)

@@ -6,5 +6,68 @@
 {% else %}
     {% include "table/emptyTable.html" %}
 {% endif %}
-<div onclick="" class="btn-request">Borrow a new umbrella</div>
+<div onclick="toggleForm()" class="btn-request">Borrow a new umbrella</div>
+
+<!-- Modal Form -->
+<div class="modal-bg" id="modal-form" style="display: none;">
+    <form action="{{ url_for('post_borrow') }}" method="post" class="modal-form">
+        <div class="modal-title">
+            <p>Submit Borrow Form</p>
+            <p onclick="toggleForm()" class="modal-close-btn">X</p>
+        </div>  
+        <div class="form-group">
+            <label for="location">Select location:</label>
+            <select name="location" id="location">
+                {% for location in session['locations'] %}
+                <option value="{{ location }}">{{ location }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div onclick="submitForm()" class="form-btn-primary">Search for umbrella</div>
+        <input type="submit" hidden />
+    </form>
+</div>
+
+<div id="umbrella-list" style="display: none;">
+    {% if session['available_umbrella'] != [] %}
+    <div class="table-umbrella-list" style="display: none;">
+        <div>Colour</div>
+        <div>Size</div>
+        <div>Location</div>
+        <div>Owner</div>
+        {% for umbrella in session['available_umbrella'] %}
+            <div>{{ umbrella[0] }}</div>
+            <div>{{ umbrella[1] }}</div>
+            <div>{{ umbrella[2] }}</div>
+            <div>{{ umbrella[3] }}</div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="error">No Umbrellas found!</div>
+    {% endif %}
+</div>
+
+<script>
+    const toggleForm = () => {
+        var modalForm = document.getElementById("modal-form");
+        var color = document.getElementById("colour");
+        var size = document.getElementById("size");
+        if (modalForm.style.display === "none") {
+            modalForm.style.display = "flex";
+            modalForm.style.flexDirection = "column";
+        } else {
+            modalForm.style.display = "none";
+            color.value = "#000000";
+            size.value = "1";
+        }
+    }
+
+    const submitForm = () => {
+        var modalForm = document.getElementById("modal-form");
+        var umbrellaList = document.getElementById("umbrella-list");
+        document.forms[0].submit();
+        modalForm.style.display = "none";
+        umbrellaList.style.flex = "flex";
+    }
+</script>
 {% include "layout/footer.html" %}

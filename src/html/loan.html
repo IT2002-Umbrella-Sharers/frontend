@@ -6,5 +6,49 @@
 {% else %}
     {% include "table/emptyTable.html" %}
 {% endif %}
-<div onclick="" class="btn-request">Lend a new umbrella</div>
+<div onclick="toggleForm()" class="btn-request">Lend a new umbrella</div>
+
+<!-- Modal Form -->
+<div class="modal-bg" id="modal-form" style="display: none">
+    <form action="{{ url_for('post_loan') }}" method="post" class="modal-form">
+        <div class="modal-title">
+            <p>Submit Loan Form</p>
+            <p onclick="toggleForm()" class="modal-close-btn">X</p>
+        </div>
+        <div class="form-group">
+            <label for="colour">Select colour:</label>
+            <input type="color" id="colour" name="colour" value="#000000">
+        </div>
+        <div class="form-group">
+            <label for="size">Size (between 1 and 5):</label>
+            <input type="number" id="size" name="size" min="1" max="5" value="1">
+        </div>
+        <div class="form-group">
+            <label for="location">Select location:</label>
+            <select name="location" id="location">
+                {% for location in session['locations'] %}
+                <option value="{{ location }}">{{ location }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div onclick="javascript:document.forms[0].submit();" class="form-btn-primary">Submit Loan</div>
+        <input type="submit" hidden />
+    </form>
+</div>
+
+<script>
+    const toggleForm = () => {
+        var modalForm = document.getElementById("modal-form");
+        var color = document.getElementById("colour");
+        var size = document.getElementById("size");
+        if (modalForm.style.display === "none") {
+            modalForm.style.display = "flex";
+            modalForm.style.flexDirection = "column";
+        } else {
+            modalForm.style.display = "none";
+            color.value = "#000000";
+            size.value = "1";
+        }
+    }
+</script>
 {% include "layout/footer.html" %}
