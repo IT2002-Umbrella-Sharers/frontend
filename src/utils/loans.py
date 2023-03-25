@@ -24,7 +24,7 @@ def retrieve_loans(id):
             loan['colour'],
             loan['size'],
             loan['location'],
-            False
+            loan['exists']
         ])
     return get_loan_header() + output
 
