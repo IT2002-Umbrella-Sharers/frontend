@@ -1,0 +1,44 @@
+<link rel="stylesheet" href='/static/css/main.css' />
+<link rel="stylesheet" href='/static/css/form.css' />
+<link rel="stylesheet" href='static/css/table.css' />
+<link rel="stylesheet" href='static/css/modal.css' />
+<div id="umbrella-list">
+    {% if session['available_umbrella'] != [] %}
+    <div>
+        <div class="umbrella">
+            <div>ID</div>
+            <div>Colour</div>
+            <div>Size</div>
+            <div>Owner</div>
+        </div>
+        {% for umbrella in session['available_umbrella'] %}
+        <div class="umbrella" id="{{umbrella[0]}}" onclick="submitForm(event)">
+            <div>{{ umbrella[0] }}</div>
+            <div>{{ umbrella[1] }}</div>
+            <div>{{ umbrella[2] }}</div>
+            <div>{{ umbrella[3] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="error">No Umbrellas found!</div>
+    {% endif %}
+</div>
+
+<script>
+    const submitForm = async (e) =>{
+        const umbrella = e.target.parentElement.id != "" ? e.target.parentElement.id : e.target.id;
+        let formData = new FormData();
+        formData.append('id', umbrella);
+        await fetch('/post_borrow_confirm', {
+            method: 'POST',
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: umbrella
+            })
+        });
+        parent.location.reload();
+    }
+</script>

@@ -2,6 +2,7 @@ from flask import session
 from .retrieve_info import retrieve_name
 from .request import get_current_loans, generate_url
 import requests
+import datetime
 
 def get_umbrella(location):
     url = generate_url("getumbrella")
@@ -30,3 +31,15 @@ def retrieve_borrowed(id):
 
 def get_borrowed_header():
     return [["Loan ID", "Umbrella ID", "Borrowed From", "Location", "Date Borrowed"]]
+
+
+def borrow_umbrella(umbrellaid, borrower):
+    url = generate_url("borrowumbrella")
+    date = datetime.datetime.now()
+    payload = {
+        "umbrellaid": umbrellaid,
+        "borrower": borrower,
+        "date": date
+    }
+    r = requests.post(url, data=payload).json()
+    return r['data']

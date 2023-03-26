@@ -87,7 +87,7 @@ def post_borrow():
             ]
             for umbrella in r
         ]
-    return redirect(url_for('borrow', res="hello"))
+    return redirect(url_for('iframeumbrella'))
 
 @app.route("/post_add", methods=['POST'])
 def post_add():
@@ -97,6 +97,19 @@ def post_add():
         session['email'],
         request.form['location'],
     )
+
+@app.route("/post_borrow_confirm", methods=['POST'])
+def post_borrow_confirm():
+    id = request.get_json()['id']
+    r = borrow_umbrella(
+        id,
+        session["email"]
+    )
+# iFrame
+
+@app.route('/iframeumbrella')
+def iframeumbrella():
+    return render_template('umbrellas.html')
 
 # Pages
 

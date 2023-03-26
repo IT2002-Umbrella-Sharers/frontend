@@ -20,3 +20,17 @@
   border: 1px solid black;
   grid-gap: 1px;
 }
+
+.umbrella {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: auto auto auto auto auto;
+    border: 1px solid black;
+    grid-gap: 1px;
+}
+
+.umbrella > div {
+    width: 115px;
+    text-align: center;
+    padding: 5px 0;
+  }
