@@ -105,6 +105,14 @@ def post_borrow_confirm():
         id,
         session["email"]
     )
+
+    if r:
+        session["borrowed"] = retrieve_borrowed(session['email'])
+        res = constants.RESULT_SUBMIT_BORROW_SUCCESSFUL
+    else:
+        res = constants.RESULT_SUBMIT_BORROW_FAILED
+    return redirect(url_for('result', res=res))
+    
 # iFrame
 
 @app.route('/iframeumbrella')
