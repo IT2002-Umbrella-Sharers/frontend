@@ -11,7 +11,6 @@ def submit_loan(id, size, colour, location):
         "location": location
     }
     r = requests.post(url, data=payload).json()
-    print("r: ", r)
     return r['data']
 
 def retrieve_loans(id):

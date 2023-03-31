@@ -6,3 +6,5 @@ RESULT_SUBMIT_LOAN_SUCCESSFUL = "Your umbrella has been successfully added to ou
 RESULT_SUBMIT_LOAN_FAILED = "Oops! Something went wrong when adding your umbrella. Please try again.."
 RESULT_SUBMIT_BORROW_SUCCESSFUL = "Your loan request has been successfully submitted. Redirecting in one second"
 RESULT_SUBMIT_BORROW_FAILED = "Oops! Something went wrong when submitting your loan. Please try again.."
+RESULT_SUBMIT_RETURN_SUCCESSFUL = "The umbrella has been successfully returned. Redirecting in one second"
+RESULT_SUBMIT_RETURN_FAILED = "Oops! Something went wrong when returning the umbrella. Please try again.."
