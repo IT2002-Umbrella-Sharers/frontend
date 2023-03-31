@@ -43,3 +43,6 @@ def borrow_umbrella(umbrellaid, borrower):
     }
     r = requests.post(url, data=payload).json()
     return r['data']
+
+def return_umbrella(loan_id, location_name):
+    pass
