@@ -1,6 +1,7 @@
 from flask import session, url_for
 from .loans import retrieve_loans
 from .borrowed import retrieve_borrowed
+from .balance import get_balance
 from .request import check_credentials, get_locations
 
 def check_logged_in():
@@ -12,6 +13,7 @@ def fn_login(email):
     session["loans"] = retrieve_loans(email)
     session["borrowed"] = retrieve_borrowed(email)
     session["locations"] = get_locations()
+    session["balance"] = get_balance(email)
     session["incorrect_input"] = False
     session["invalid_register"] = False
     session['available_umbrella'] = []

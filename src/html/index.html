@@ -1,4 +1,8 @@
 {% include "layout/header.html" %}
+<div style="display: flex; justify-content: space-evenly;">
+    <div class="subtitle">Current balance: ${{ session["balance" ]}}</div>
+    <div onclick="toggleForm()" class="btn-request">Top Up</div>
+</div>
 <div class="subtitle">Items loaned</div>
 {% if session["loans"] != [] %}
     {% with rows=session["loans"] %}
@@ -11,4 +15,38 @@
         {% include "table/table.html" %}
     {% endwith %}
 {% endif %}
+
+<!-- Modal Form -->
+<div class="modal-bg" id="modal-form" style="display: none">
+    <form action="{{ url_for('post_topup') }}" method="post" class="modal-form">
+        <div class="modal-title">
+            <p>Submit Top-Up Request</p>
+            <p onclick="toggleForm()" class="modal-close-btn">X</p>
+        </div>
+        <div class="form-group">
+            <label for="amount">Select amount:</label>
+            <input type="number" id="amount" name="amount" min="0" step="0.01" value="0">
+        </div>
+        <div onclick="javascript:document.forms[0].submit();" class="form-btn-primary">
+            Submit Top Up Request
+        </div>
+        <input type="submit" hidden />
+    </form>
+</div>
+
+<script>
+    const toggleForm = () => {
+        var modalForm = document.getElementById("modal-form");
+        var color = document.getElementById("colour");
+        var size = document.getElementById("size");
+        if (modalForm.style.display === "none") {
+            modalForm.style.display = "flex";
+            modalForm.style.flexDirection = "column";
+        } else {
+            modalForm.style.display = "none";
+            color.value = "#000000";
+            size.value = "1";
+        }
+    }
+</script>
 {% include "layout/footer.html" %}

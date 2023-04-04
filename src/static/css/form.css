@@ -43,6 +43,7 @@
     float:left;
     font-weight:800;
     cursor: pointer;
+    text-align: center;
 }
 
 .form-btn-primary:hover {

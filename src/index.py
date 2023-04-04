@@ -112,7 +112,20 @@ def post_borrow_confirm():
     else:
         res = constants.RESULT_SUBMIT_BORROW_FAILED
     return redirect(url_for('result', res=res))
-    
+
+@app.route("/post_topup", methods=['POST'])
+def post_topup():
+    r = add_balance(
+        session['email'],
+        request.form['amount']
+    )
+    if r:
+        session['balance'] = get_balance(session['email'])
+        res = constants.RESULT_SUBMIT_TOPUP_SUCCESSFUL
+    else:
+        res = constants.RESULT_SUBMIT_TOPUP_FAILED
+    return redirect(url_for('result', res=res))
+
 # iFrame
 
 @app.route('/iframeumbrella')
