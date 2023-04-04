@@ -120,6 +120,7 @@ def post_return():
 
     if r:
         session["borrowed"] = retrieve_borrowed(session['email'])
+        session['balance'] = get_balance(session['email'])
         res = constants.RESULT_SUBMIT_RETURN_SUCCESSFUL
     else:
         res = constants.RESULT_SUBMIT_RETURN_FAILED
@@ -137,6 +138,7 @@ def post_topup():
         res = constants.RESULT_SUBMIT_TOPUP_SUCCESSFUL
     else:
         res = constants.RESULT_SUBMIT_TOPUP_FAILED
+    return redirect(url_for('result', res=res))
 
 # iFrame
 

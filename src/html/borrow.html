@@ -111,7 +111,7 @@
     }
 
     const submitReturn = (e) => {
-        var loanId = e.currentTarget.children[1].innerHTML;
+        var loanId = e.currentTarget.children[0].innerHTML;
         if (isNaN(parseFloat(loanId))) { return };
         document.forms["modal-return-form"]["loan-id-field"].value = parseFloat(loanId);
         document.forms['modal-return-form'].submit();
