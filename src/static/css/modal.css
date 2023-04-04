@@ -35,3 +35,9 @@
 .modal-close-btn {
     cursor: pointer;
 }
+
+.form-body {
+    background-color: antiquewhite; 
+    border-style: solid; 
+    margin-top: 10px;
+}

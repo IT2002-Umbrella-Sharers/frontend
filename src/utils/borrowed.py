@@ -45,4 +45,12 @@ def borrow_umbrella(umbrellaid, borrower):
     return r['data']
 
 def return_umbrella(loan_id, location_name):
-    pass
+    url = generate_url("returnumbrella")
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    payload = {
+        "loanid": loan_id,
+        "date": date,
+        "returnlocation": location_name
+    }
+    r = requests.post(url, data=payload).json()
+    return r['data']

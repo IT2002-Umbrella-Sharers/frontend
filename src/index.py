@@ -46,7 +46,6 @@ def post_register():
         request.form['password'],
         request.form['confirm-password']
     )
-    print(r)
     if r:
         fn_login(email)
         res = constants.RESULT_REGISTER_SUCCESSFUL
@@ -65,7 +64,6 @@ def post_loan():
     )
 
     if r:
-        print(retrieve_loans(session["email"]))
         session["loans"] = retrieve_loans(session["email"])
         res = constants.RESULT_SUBMIT_LOAN_SUCCESSFUL
     else:
@@ -112,6 +110,21 @@ def post_borrow_confirm():
     else:
         res = constants.RESULT_SUBMIT_BORROW_FAILED
     return redirect(url_for('result', res=res))
+    
+@app.route("/post_return", methods=['POST'])
+def post_return():
+    r = return_umbrella(
+        request.form['loan-id-field'],
+        request.form['return-location']
+    )
+
+    if r:
+        session["borrowed"] = retrieve_borrowed(session['email'])
+        res = constants.RESULT_SUBMIT_RETURN_SUCCESSFUL
+    else:
+        res = constants.RESULT_SUBMIT_RETURN_FAILED
+
+    return redirect(url_for('result', res=res))
 
 @app.route("/post_topup", methods=['POST'])
 def post_topup():
@@ -124,7 +137,6 @@ def post_topup():
         res = constants.RESULT_SUBMIT_TOPUP_SUCCESSFUL
     else:
         res = constants.RESULT_SUBMIT_TOPUP_FAILED
-    return redirect(url_for('result', res=res))
 
 # iFrame
 

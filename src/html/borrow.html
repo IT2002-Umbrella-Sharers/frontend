@@ -41,8 +41,8 @@
 </div>
 
 <!-- Modal Return Form -->
-<div class="modal-bg" id="modal-return-form" style="display: none;">
-    <form action="{{ url_for('post_borrow') }}" method="post" class="modal-form" target="show_umbrellas">
+<div class="modal-bg" style="display: none;" name="return-form" id="modal-return-form-container">
+    <form action="{{ url_for('post_return') }}" method="post" class="modal-form" id="modal-return-form">
         <div class="modal-title">
             <p>Return Umbrella</p>
             <p onclick="toggleReturnForm()" class="modal-close-btn">X</p>
@@ -54,15 +54,18 @@
                 <option value="{{ location }}">{{ location }}</option>
                 {% endfor %}
             </select>
-        </div> 
-        {% for umbrella in session['borrowed'] %}
-        <div id="umbrella-{{loop.index}}" class="form-group" onclick="submitReturn(event)">
-            {% set outer_loop = loop %}
-            {% for val in umbrella %}
-            <div style="flex: 1" id="loan-{{ outer_loop.index }}-{{ loop.index }}">{{ val }}</div>
+        </div>
+        <div class="form-body">
+            {% for umbrella in session['borrowed'] %}
+            <div id="umbrella-{{loop.index}}" class="form-group" style="border-style: none none solid none; padding: 5px;" onclick="submitReturn(event)">
+                {% set outer_loop = loop %}
+                {% for val in umbrella %}
+                <div style="flex: 1;" id="loan-{{ outer_loop.index }}-{{ loop.index }}">{{ val }}</div>
+                {% endfor %}
+            </div>
             {% endfor %}
         </div>
-        {% endfor %}
+        <input id="loan-id-field" name="loan-id-field" value="" hidden />
         <input type="submit" hidden />
     </form>
 </div>
@@ -98,7 +101,7 @@
     }
 
     const toggleReturnForm = () => {
-        var modalForm = document.getElementById("modal-return-form");
+        var modalForm = document.getElementById("modal-return-form-container");
         if (modalForm.style.display === "none") {
             modalForm.style.display = "flex";
             modalForm.style.flexDirection = "column";
@@ -110,8 +113,8 @@
     const submitReturn = (e) => {
         var loanId = e.currentTarget.children[1].innerHTML;
         if (isNaN(parseFloat(loanId))) { return };
-        
-        var returnLocation = document.getElementById("return-location").value;
+        document.forms["modal-return-form"]["loan-id-field"].value = parseFloat(loanId);
+        document.forms['modal-return-form'].submit();
     }
 </script>
 {% include "layout/footer.html" %}

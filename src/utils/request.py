@@ -64,7 +64,6 @@ def register(email, password, first_name, last_name):
         'last_name': last_name
     }
     r = requests.post(url, data=payload).json()
-    print(r)
     return r['data']
 
 def return_umbrella(loan_id):
