@@ -5,7 +5,13 @@
             <input type="email" name="email" placeholder="Email" class="form-input" />
             <input type="password" name="password" placeholder="Password" class="form-input" />
             {% if session['incorrect_input'] == True %}
-                {% include "components/errorBar.html" %}
+                {% with errorMessage="Email/Password was invalid! Please try again"%}
+                    {% include "components/errorBar.html" %}
+                {% endwith %}
+            {% elif session['is_banned'] == True %}
+                {% with errorMessage="Your account is banned! Please contact the admins for clarifications"%}
+                    {% include "components/errorBar.html" %}
+                {% endwith %}
             {% endif %}
             <div onclick="javascript:document.forms[0].submit();" class="form-btn-primary">Sign In</div>
             <div class="form-btn-secondary">

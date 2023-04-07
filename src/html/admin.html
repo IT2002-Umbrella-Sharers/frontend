@@ -1,3 +1,62 @@
 {% include "layout/header.html" %}
+<div class="subtitle">View Users</div>
+{% for row in session['all_users'] %}
+<div class="table-container" onclick="openForm(event)">
+    {% for element in row %}
+        <div style="flex: 1;">{{ element }}</div>
+    {% endfor %}
+</div>
 
+<!-- Modal Form -->
+<div class="modal-bg" id="modal-form" style="display: none;">
+    <form action="{{ url_for('post_ban_unban') }}" method="post" class="modal-form" target="show_umbrellas">
+        <div class="modal-title">
+            <p id="form-header"></p>
+            <p onclick="closeForm()" class="modal-close-btn">X</p>
+        </div> 
+        <p class="subsubtitle">Email</p>
+        <p id="email-description"></p>
+        <p class="subsubtitle">Name</p>
+        <p id="name-description"></p>
+        <div onclick="submitForm()" class="form-btn-primary">Submit</div>
+        <input type="submit" hidden />
+        <input id="email-field" name="email-field" value="" hidden />
+        <input id="to-ban-field" name="to-ban-field" value="" hidden />
+    </form>
+</div>
+
+{% endfor %}
+<script>
+    const openForm = (e) => {
+        var email = e.currentTarget.children[0].innerHTML;
+        if (email === 'Email Address') {
+            return;
+        }
+        var name = e.currentTarget.children[1].innerHTML;
+        var is_banned = e.currentTarget.children[2].innerHTML === 'True';
+        var formHeader = document.getElementById("form-header");
+        if (is_banned) {
+            formHeader.innerText = 'Submit Unban Request';
+        } else {
+            formHeader.innerText = 'Submit Ban Request';
+        }
+        document.getElementById("email-description").innerText = email;
+        document.getElementById("name-description").innerText = name;
+        document.forms[0]["email-field"].value = email;
+        document.forms[0]["to-ban-field"].value = !is_banned;
+
+        var modalForm = document.getElementById("modal-form");
+        modalForm.style.display = "flex";
+        modalForm.style.flexDirection = "column";
+    }
+
+    const closeForm = () => {
+        var modalForm = document.getElementById("modal-form");
+        modalForm.style.display = "none";
+    }
+
+    const submitForm = () => {
+        document.forms[0].submit();
+    }
+</script>
 {% include "layout/footer.html" %}

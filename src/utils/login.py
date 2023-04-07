@@ -3,6 +3,8 @@ from .loans import retrieve_loans
 from .borrowed import retrieve_borrowed
 from .balance import get_balance
 from .request import check_credentials, get_locations
+from .users import get_admin_status, get_banned_status
+from .admin import get_users
 
 def check_logged_in():
     if 'logged_in' not in session:
@@ -19,20 +21,33 @@ def fn_login(email):
     session["incorrect_input"] = False
     session["invalid_register"] = False
     session['available_umbrella'] = []
+    session['is_admin'] = get_admin_status(email)
+    if session['is_admin']:
+        for user in get_users():
+            session['all_users'].append([
+                user['email_address'],
+                user['name'],
+                user['is_banned'],
+            ])
 
 def fn_logout():
     session["logged_in"] = False
     session["incorrect_input"] = False
     session["invalid_register"] = False
     session['available_umbrella'] = []
+    session['is_admin'] = False
+    session['all_users'] = [['Email Address', 'Name', 'Is Banned']]
 
 def check_result_login(email, password):
-    r = check_credentials(email, password)
-    if r:
+    valid_user = check_credentials(email, password)
+    if valid_user:
         fn_login(email)
     else:
         session["incorrect_input"] = True
-    return r
+    
+    session['is_banned'] = get_banned_status(email)
+
+    return (valid_user and not(session['is_banned']))
 
 def reroute_for_login(path, other):
     if 'post' in path or "register" in path:

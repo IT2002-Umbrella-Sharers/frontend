@@ -10,3 +10,5 @@ RESULT_SUBMIT_RETURN_SUCCESSFUL = "The umbrella has been successfully returned. 
 RESULT_SUBMIT_RETURN_FAILED = "Oops! Something went wrong when returning the umbrella. Please try again.."
 RESULT_SUBMIT_TOPUP_SUCCESSFUL = "Your top up request has been successfully submitted. Redirecting in one second"
 RESULT_SUBMIT_TOPUP_FAILED = "Oops! Something went wrong when submitting your top up request. Please try again.."
+RESULT_SUBMIT_BAN_UNBAN_SUCCESSFUL = "Your request has been successfully submitted. Redirecting in one second"
+RESULT_SUBMIT_BAN_UNBAN_FAILED = "Oops! Something went wrong when submitting your request. Please try again.."

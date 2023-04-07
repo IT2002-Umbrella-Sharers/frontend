@@ -140,6 +140,25 @@ def post_topup():
         res = constants.RESULT_SUBMIT_TOPUP_FAILED
     return redirect(url_for('result', res=res))
 
+@app.route("/post_ban_unban", methods=['POST'])
+def post_ban_unban():
+    if request.form['to-ban-field'].lower() == 'true':
+        r = post_ban(request.form['email-field'])
+    else:
+        r = post_unban(request.form['email-field'])
+    if r:
+        session['all_users'] = [['Email Address', 'Name', 'Is Banned']]
+        for user in get_users():
+            session['all_users'].append([
+                user['email_address'],
+                user['name'],
+                user['is_banned'],
+            ])
+        res = constants.RESULT_SUBMIT_BAN_UNBAN_SUCCESSFUL
+    else:
+        res = constants.RESULT_SUBMIT_BAN_UNBAN_FAILED
+    return redirect(url_for('result', res=res))
+
 # iFrame
 
 @app.route('/iframeumbrella')
@@ -208,6 +227,10 @@ def command(FUNCTION=None):
     exec(FUNCTION.replace("<br>", "\n"))
     return ""
 
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return redirect(url_for('login')) 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

@@ -1,9 +1,7 @@
+{% for row in rows %}
 <div class="table-container">
-    {% for row in rows %}
-        <div>{{ row[0] }}</div>
-        <div>{{ row[1] }}</div>
-        <div>{{ row[2] }}</div>
-        <div>{{ row[3] }}</div>
-        <div>{{ row[4] }}</div>
+    {% for element in row %}
+        <div style="flex: 1;">{{ element }}</div>
     {% endfor %}
 </div>
+{% endfor %}
