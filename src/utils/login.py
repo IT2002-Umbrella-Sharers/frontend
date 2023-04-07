@@ -5,6 +5,8 @@ from .balance import get_balance
 from .request import check_credentials, get_locations
 
 def check_logged_in():
+    if 'logged_in' not in session:
+        fn_logout()
     return session["logged_in"]
 
 def fn_login(email):
